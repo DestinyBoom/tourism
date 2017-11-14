@@ -24,7 +24,6 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/findAll")
     public List<User> findAll(HttpServletRequest request, HttpServletResponse response){
-        System.out.println("ss");
         return userService.findAll();
     }
 }
