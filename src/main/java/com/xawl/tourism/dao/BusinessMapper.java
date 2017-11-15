@@ -2,6 +2,8 @@ package com.xawl.tourism.dao;
 
 import com.xawl.tourism.pojo.Business;
 
+import java.util.List;
+
 public interface BusinessMapper {
     int deleteByPrimaryKey(String bid);
 
@@ -14,4 +16,6 @@ public interface BusinessMapper {
     int updateByPrimaryKeySelective(Business record);
 
     int updateByPrimaryKey(Business record);
+
+    List<Business> findAll();
 }
