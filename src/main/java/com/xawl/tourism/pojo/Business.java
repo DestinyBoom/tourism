@@ -15,6 +15,8 @@ public class Business {
 
     private Boolean isUse;
 
+    private String image;
+
     public String getBid() {
         return bid;
     }
@@ -69,5 +71,13 @@ public class Business {
 
     public void setIsUse(Boolean isUse) {
         this.isUse = isUse;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image == null ? null : image.trim();
     }
 }

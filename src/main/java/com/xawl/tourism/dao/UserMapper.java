@@ -1,7 +1,6 @@
 package com.xawl.tourism.dao;
 
-import com.xawl.tourism.pojo.User;
-
+import javax.xml.registry.infomodel.User;
 import java.util.List;
 
 public interface UserMapper {
