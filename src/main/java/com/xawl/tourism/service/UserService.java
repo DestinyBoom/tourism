@@ -1,10 +1,10 @@
 package com.xawl.tourism.service;
 
 import com.xawl.tourism.dao.UserMapper;
+import com.xawl.tourism.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.registry.infomodel.User;
 import java.util.List;
 
 /**
