@@ -19,6 +19,16 @@ public class Business {
 
     private String pass;
 
+    private float minPrice;
+
+    public float getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(float minPrice) {
+        this.minPrice = minPrice;
+    }
+
     public String getPass() {
         return pass;
     }

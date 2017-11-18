@@ -1,10 +1,12 @@
 package com.xawl.tourism.controller;
 
 import com.xawl.tourism.service.TicketService;
+import com.xawl.tourism.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,8 +20,12 @@ public class TicketController {
     @Autowired
     TicketService ticketService;
 
-
-
+    @GetMapping("/findByBid.action")
+    @ResponseBody
+    public Result findByBid(String bid) {
+        Result result = ticketService.findByBid(bid);
+        return result;
+    }
 
     /**
      * 使用票
