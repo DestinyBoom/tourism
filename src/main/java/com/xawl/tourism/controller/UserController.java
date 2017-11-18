@@ -3,8 +3,10 @@ package com.xawl.tourism.controller;
 
 import com.xawl.tourism.pojo.User;
 import com.xawl.tourism.service.UserService;
+import com.xawl.tourism.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,5 +29,16 @@ public class UserController {
     @RequestMapping("/findAll.action")
     public List<User> findAll(HttpServletRequest request, HttpServletResponse response) {
         return userService.findAll();
+    }
+
+    @ResponseBody
+    @PostMapping("/regist.action")
+    public Result regist(User user) {
+        try {
+            return this.userService.regist(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Result.fail(500, "系统错误");
     }
 }
