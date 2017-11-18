@@ -103,7 +103,7 @@
   </update>
     <!--生成结束-->
 
-    <select id="select" parameterType="com.xawl.tourism.pojo.Order" resultType="com.xawl.tourism.pojo.Order">
+    <select id="select" parameterType="com.xawl.tourism.pojo.Order" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM tb_order

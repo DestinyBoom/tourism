@@ -10,9 +10,10 @@
         <result column="level" property="level" jdbcType="CHAR"/>
         <result column="is_use" property="isUse" jdbcType="BIT"/>
         <result column="image" property="image" jdbcType="VARCHAR"/>
+        <result column="pass" property="pass" jdbcType="CHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-        bid, bname, latitude, longitude, address, level, is_use, image
+        bid, bname, latitude, longitude, address, level, is_use, image,pass
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
@@ -27,10 +28,10 @@
     <insert id="insert" parameterType="com.xawl.tourism.pojo.Business">
         insert into tb_business (bid, bname, latitude,
         longitude, address, level, is_use,
-        image)
+        image,pass)
         values (#{bid,jdbcType=CHAR}, #{bname,jdbcType=CHAR}, #{latitude,jdbcType=CHAR},
         #{longitude,jdbcType=CHAR}, #{address,jdbcType=CHAR}, #{level,jdbcType=CHAR}, #{isUse,jdbcType=BIT},
-        #{image,jdbcType=VARCHAR})
+        #{image,jdbcType=VARCHAR},#{pass,jdbcType=CHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.xawl.tourism.pojo.Business">
         insert into tb_business
@@ -59,6 +60,9 @@
             <if test="image != null">
                 image,
             </if>
+            <if test="pass != null">
+                pass,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="bid != null">
@@ -84,6 +88,9 @@
             </if>
             <if test="image != null">
                 #{image,jdbcType=VARCHAR},
+            </if>
+            <if test="pass != null">
+                #{pass,jdbcType=CHAR},
             </if>
         </trim>
     </insert>
@@ -111,6 +118,9 @@
             <if test="image != null">
                 image = #{image,jdbcType=VARCHAR},
             </if>
+            <if test="pass != null">
+                pass = #{pass,jdbcType=CHAR},
+            </if>
         </set>
         where bid = #{bid,jdbcType=CHAR}
     </update>
@@ -123,6 +133,7 @@
         level = #{level,jdbcType=CHAR},
         is_use = #{isUse,jdbcType=BIT},
         image = #{image,jdbcType=VARCHAR}
+        pass = #{pass,jdbcType=CHAR}
         where bid = #{bid,jdbcType=CHAR}
     </update>
 
