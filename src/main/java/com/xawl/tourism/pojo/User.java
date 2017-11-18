@@ -46,11 +46,13 @@ public class User {
     }
 
     public Date getSigninTime() {
+        //this.showRegistTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(signinTime);
         return signinTime;
     }
 
     public void setSigninTime(Date signinTime) {
         this.signinTime = signinTime;
+        //this.showRegistTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(signinTime);
     }
 
     public String getPass() {
@@ -91,5 +93,20 @@ public class User {
 
     public void setIsdel(Boolean isdel) {
         this.isdel = isdel;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid='" + uid + '\'' +
+                ", phone='" + phone + '\'' +
+                ", account='" + account + '\'' +
+                ", signinTime=" + signinTime +
+                ", pass='" + pass + '\'' +
+                ", sex='" + sex + '\'' +
+                ", headImgPath='" + headImgPath + '\'' +
+                ", isAct=" + isAct +
+                ", isdel=" + isdel +
+                '}';
     }
 }

@@ -5,7 +5,7 @@
     <id column="uid" property="uid" jdbcType="CHAR" />
     <result column="phone" property="phone" jdbcType="CHAR" />
     <result column="account" property="account" jdbcType="CHAR" />
-    <result column="signin_time" property="signinTime" jdbcType="TIMESTAMP" />
+    <result column="signin_time" property="signinTime" jdbcType="TIMESTAMP"/>
     <result column="pass" property="pass" jdbcType="CHAR" />
     <result column="sex" property="sex" jdbcType="CHAR" />
     <result column="head_img_path" property="headImgPath" jdbcType="CHAR" />
@@ -139,10 +139,10 @@
 
 
   <!--zb-->
-  <select id="findAll" resultType="com.xawl.tourism.pojo.User">
+  <select id="findAll" resultMap="BaseResultMap">
     SELECT * FROM tb_user
   </select>
-  <select id="selectByPhone" resultType="com.xawl.tourism.pojo.User" parameterType="java.lang.String">
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
     SELECT * FROM tb_user WHERE phone = #{phone}
   </select>
 </mapper>
