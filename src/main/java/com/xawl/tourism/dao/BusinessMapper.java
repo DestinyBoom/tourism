@@ -18,4 +18,6 @@ public interface BusinessMapper {
     int updateByPrimaryKey(Business record);
 
     List<Business> findAll();
+
+    Business findById(String bid);
 }

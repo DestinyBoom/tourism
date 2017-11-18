@@ -1,5 +1,7 @@
 package com.xawl.tourism.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xawl.tourism.dao.BusinessMapper;
 import com.xawl.tourism.pojo.Business;
 import com.xawl.tourism.utils.Result;
@@ -16,13 +18,24 @@ public class BusinessService {
     @Autowired
     private BusinessMapper businessMapper;
 
-    public Result findAll() {
+    public Result findAll(Integer page, Integer num) {
         try {
+            PageHelper.startPage(page, num);
             List<Business> list = businessMapper.findAll();
-            return Result.success(list);
+            PageInfo<Business> pageInfo = new PageInfo<Business>(list);
+            return Result.success(pageInfo);
         } catch (Exception e) {
             return Result.fail(405, "查询失败");
         }
 
+    }
+
+    public Result findById(String bid) {
+        try {
+            Business business = businessMapper.findById(bid);
+            return Result.success(business);
+        } catch (Exception e) {
+            return Result.fail(405, "查询失败");
+        }
     }
 }
