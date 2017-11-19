@@ -2,6 +2,8 @@ package com.xawl.tourism.dao;
 
 import com.xawl.tourism.pojo.BusinessKeepsake;
 
+import java.util.List;
+
 public interface BusinessKeepsakeMapper {
     int deleteByPrimaryKey(String kid);
 
@@ -16,4 +18,6 @@ public interface BusinessKeepsakeMapper {
     int updateByPrimaryKeyWithBLOBs(BusinessKeepsake record);
 
     int updateByPrimaryKey(BusinessKeepsake record);
+
+    List<BusinessKeepsake> findByBid(String bid);
 }
