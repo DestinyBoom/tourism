@@ -2,10 +2,7 @@ package com.xawl.tourism.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.xawl.tourism.dao.BusinessInfoMapper;
-import com.xawl.tourism.dao.BusinessKeepsakeMapper;
-import com.xawl.tourism.dao.BusinessMapper;
-import com.xawl.tourism.dao.TicketMapper;
+import com.xawl.tourism.dao.*;
 import com.xawl.tourism.pojo.*;
 import com.xawl.tourism.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +23,8 @@ public class BusinessService {
     private BusinessKeepsakeMapper businessKeepsakeMapper;
     @Autowired
     private BusinessInfoMapper businessInfoMapper;
+    @Autowired
+    private BusinessImgMapper businessImgMapper;
 
     public Result findAll(Integer page, Integer num) {
         try {
@@ -59,8 +58,11 @@ public class BusinessService {
             businessVo.setBusinessKeepsake(businessKeepsakes);
             BusinessInfo businessInfo = businessInfoMapper.selectByPrimaryKey(bid);
             businessVo.setBusinessInfo(businessInfo);
+            List<BusinessImg> businessImgs = businessImgMapper.findByBid(bid);
+            businessVo.setBusinessImgs(businessImgs);
             return Result.success(businessVo);
         } catch (Exception e) {
+            e.printStackTrace();
             return Result.fail(405, "查询失败");
         }
     }

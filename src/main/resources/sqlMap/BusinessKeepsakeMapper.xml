@@ -6,12 +6,21 @@
         <result column="bid" property="bid" jdbcType="CHAR"/>
         <result column="img_path" property="imgPath" jdbcType="CHAR"/>
     </resultMap>
+    <resultMap id="map" type="com.xawl.tourism.pojo.BusinessKeepsake">
+        <id column="kid" property="kid" jdbcType="CHAR"/>
+        <result column="bid" property="bid" jdbcType="CHAR"/>
+        <result column="img_path" property="imgPath" jdbcType="CHAR"/>
+        <result column="info" property="info" jdbcType="LONGVARCHAR"/>
+    </resultMap>
     <resultMap id="ResultMapWithBLOBs" type="com.xawl.tourism.pojo.BusinessKeepsake" extends="BaseResultMap">
         <result column="info" property="info" jdbcType="LONGVARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
     kid, bid, img_path
   </sql>
+    <sql id="all">
+        kid, bid, info ,img_path
+    </sql>
     <sql id="Blob_Column_List">
     info
   </sql>
@@ -93,9 +102,9 @@
     where kid = #{kid,jdbcType=CHAR}
   </update>
     <!--生成结束-->
-    <select id="findByBid" parameterType="java.lang.String" resultType="com.xawl.tourism.pojo.BusinessKeepsake">
+    <select id="findByBid" parameterType="java.lang.String" resultMap="map">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="all"/>
         from
         tb_business_keepsake
         where bid=#{bid}

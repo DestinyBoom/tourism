@@ -1,5 +1,7 @@
 package com.xawl.tourism.utils;
 
+import org.junit.Test;
+
 import java.util.UUID;
 
 /**
@@ -14,5 +16,10 @@ public class UUIDUtils {
     public static String createUUID() {
         String str = UUID.randomUUID().toString().replaceAll("-", "");
         return str;
+    }
+
+    @Test
+    public void fun() {
+        System.out.println(createUUID());
     }
 }

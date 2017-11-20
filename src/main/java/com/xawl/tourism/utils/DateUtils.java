@@ -1,5 +1,7 @@
 package com.xawl.tourism.utils;
 
+import org.junit.Test;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,5 +16,10 @@ public class DateUtils {
 
     public static String dateToString(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd ").format(date);
+    }
+
+    @Test
+    public void fun() {
+        System.out.println(getDateString());
     }
 }

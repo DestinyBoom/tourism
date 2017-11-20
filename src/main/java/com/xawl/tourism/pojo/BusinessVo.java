@@ -10,6 +10,7 @@ public class BusinessVo {
     private List<BusinessKeepsake> businessKeepsake;
     private List<Ticket> ticket;
     private BusinessInfo businessInfo;
+    private List<BusinessImg> businessImgs;
 
     public Business getBusiness() {
         return business;
@@ -41,5 +42,13 @@ public class BusinessVo {
 
     public void setBusinessInfo(BusinessInfo businessInfo) {
         this.businessInfo = businessInfo;
+    }
+
+    public List<BusinessImg> getBusinessImgs() {
+        return businessImgs;
+    }
+
+    public void setBusinessImgs(List<BusinessImg> businessImgs) {
+        this.businessImgs = businessImgs;
     }
 }

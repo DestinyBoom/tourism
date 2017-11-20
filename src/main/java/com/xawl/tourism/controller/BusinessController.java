@@ -28,10 +28,10 @@ public class BusinessController {
     @GetMapping("/findAll.action")
     @ResponseBody
     public Result findAll(Integer page, Integer num) {
-        if (page == null || page == 0) {
+        if (page == null || page < 1) {
             page = 1;
         }
-        if (num == null || num == 0) {
+        if (num == null || num < 1) {
             num = DefaultParam.pageNum;
         }
         Result result = businessService.findAll(page, num);
