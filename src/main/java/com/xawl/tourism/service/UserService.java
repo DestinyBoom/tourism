@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -33,7 +34,7 @@ public class UserService {
      * @return
      * @throws Exception
      */
-    public Result login(User user) throws Exception {
+    public Result login(HttpServletRequest request, User user) throws Exception {
         User userRes = this.userMapper.selectByPhone(user.getPhone());
         if (userRes == null) {
             return Result.fail(201, "该用户不存在！");
@@ -42,7 +43,9 @@ public class UserService {
             return Result.fail(202, "用户名或密码不能为空！");
         }
         if(user.getPhone().equals(userRes.getPhone()) && MD5Utils.addMD5(user.getPass()).equals(userRes.getPass())){
-            return Result.success(userRes);
+            int token = RandomUtils.getRandom();
+            request.getSession().setAttribute("token", token);
+            return Result.success(String.valueOf(token), userRes);
         }
         return Result.fail(203, "用户名或密码错误！");
     }
@@ -87,5 +90,44 @@ public class UserService {
             return Result.success(userResult);
         }
         return Result.fail(205, "注册失败！");
+    }
+
+    /**
+     * 按手机号查询用户
+     * @param phone
+     * @return
+     */
+    public Result selectByPhone(String phone) {
+        User userRes = this.userMapper.selectByPhone(phone);
+        if (userRes == null) {
+            return Result.fail(201, "该用户不存在！");
+        }
+        return Result.success(userRes);
+    }
+
+    public Result updateByPrimaryKey(User user) {
+        User userRes = this.userMapper.selectByPrimaryKey(user.getUid());
+        if (userRes == null) {
+            return Result.fail(201, "该用户不存在！");
+        }
+        if (user.getAccount()!= null){
+            if (user.getAccount().isEmpty()){
+                return Result.fail(204, "用户名不能为空！");
+            }
+            if (user.getAccount().length()>10){
+                return Result.fail(202, "用户名应该小于等于10个字符！");
+            }
+        }
+        if (user.getSex() != null) {
+            if (!user.getSex().equals("M") && !user.getSex().equals("W")) {
+                return Result.fail(203, "传值错误，男性应该是M，女性应该是W。");
+            }
+        }
+
+        int row = this.userMapper.updateByPrimaryKeySelective(user);
+        if (row == 1) {
+            return Result.success();
+        }
+        return Result.fail(205, "修改信息失败！");
     }
 }

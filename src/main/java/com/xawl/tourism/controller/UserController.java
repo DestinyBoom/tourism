@@ -1,6 +1,7 @@
 package com.xawl.tourism.controller;
 
 
+import com.xawl.tourism.interceptor.Role;
 import com.xawl.tourism.pojo.User;
 import com.xawl.tourism.service.UserService;
 import com.xawl.tourism.utils.Result;
@@ -39,9 +40,9 @@ public class UserController {
      */
     @ResponseBody
     @GetMapping ("/login.action")
-    public Result login(User user) {
+    public Result login(HttpServletRequest request, User user) {
         try {
-            return this.userService.login(user);
+            return this.userService.login(request, user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,6 +59,40 @@ public class UserController {
     public Result regist(User user) {
         try {
             return this.userService.regist(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Result.fail(500, "系统错误");
+    }
+
+    /**
+     * 按手机号查询用户信息
+     * @param phone
+     * @return
+     */
+    @Role(role=Role.ROLE_USER)
+    @ResponseBody
+    @GetMapping("/selectByPhone.action")
+    public Result selectByPhone(String phone) {
+        try {
+            return this.userService.selectByPhone(phone);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Result.fail(500, "系统错误");
+    }
+
+    /**
+     * 根据主键修改用户信息
+     * @param user
+     * @return
+     */
+    @Role(role=Role.ROLE_USER)
+    @ResponseBody
+    @PostMapping("/updateByPrimaryKey.action")
+    public Result updateByPrimaryKey(User user) {
+        try {
+            return this.userService.updateByPrimaryKey(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
