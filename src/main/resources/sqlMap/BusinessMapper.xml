@@ -141,8 +141,9 @@
     <select id="findAll" resultType="com.xawl.tourism.pojo.Business">
         select
         <include refid="Base_Column_List"/>
-        from tb_business
+        from tb_business b
         where is_use=0
+        ORDER BY (SELECT COUNT(*) FROM tb_order WHERE bid= b.bid) DESC
     </select>
 
     <select id="findById" parameterType="java.lang.String" resultType="com.xawl.tourism.pojo.Business">
