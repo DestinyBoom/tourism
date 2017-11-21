@@ -10,9 +10,31 @@
         <result column="oid" property="oid" jdbcType="CHAR"/>
         <result column="tid" property="tid" jdbcType="CHAR"/>
     </resultMap>
+
+    <resultMap id="TIcketVoMap" type="com.xawl.tourism.pojo.TicketVo">
+        <association property="userTicket" javaType="com.xawl.tourism.pojo.UserTicket">
+            <id column="code" property="code" jdbcType="CHAR"/>
+            <result column="num" property="num" jdbcType="SMALLINT"/>
+            <result column="use_date" property="useDate" jdbcType="DATE"/>
+            <result column="use_time" property="useTime" jdbcType="TIMESTAMP"/>
+            <result column="is_use" property="isUse" jdbcType="BIT"/>
+            <result column="oid" property="oid" jdbcType="CHAR"/>
+            <result column="tid" property="tid" jdbcType="CHAR"/>
+        </association>
+        <association property="ticket" javaType="com.xawl.tourism.pojo.Ticket">
+            <id column="tid" property="tid" jdbcType="CHAR"/>
+            <result column="bid" property="bid" jdbcType="CHAR"/>
+            <result column="price" property="price" jdbcType="REAL"/>
+            <result column="tname" property="tname" jdbcType="CHAR"/>
+            <result column="info" property="info" jdbcType="CHAR"/>
+        </association>
+    </resultMap>
     <sql id="Base_Column_List">
-    code, num, use_date, use_time, is_use, oid, tid
+    tb_user_ticket.code, tb_user_ticket.num, tb_user_ticket.use_date, tb_user_ticket.use_time, tb_user_ticket.is_use, tb_user_ticket.oid, tb_user_ticket.tid
   </sql>
+    <sql id="TicketList">
+        tb_ticket.tid, tb_ticket.bid, tb_ticket.price, tb_ticket.tname, tb_ticket.info
+    </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
@@ -117,10 +139,18 @@
 
     <!--生成结束-->
 
-    <select id="findByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="findbyOid" parameterType="java.lang.String" resultMap="TIcketVoMap">
         SELECT
-        <include refid="Base_Column_List"/>
-        FROM tb_user_ticket
-        where oid=#{oid}
+        <include refid="Base_Column_List"/>,
+        <include refid="TicketList"/>
+        FROM tb_user_ticket , tb_ticket
+        where tb_user_ticket.oid=#{oid} and tb_user_ticket.tid=tb_ticket.tid
     </select>
+
+    <!-- <select id="findByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+         SELECT
+         <include refid="Base_Column_List"/>
+         FROM tb_user_ticket
+         where oid=#{oid}
+     </select>-->
 </mapper>

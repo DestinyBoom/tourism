@@ -20,14 +20,14 @@ public class UserTicketContrller {
 
     @GetMapping("/findbyOid.action")
     @ResponseBody
-    public Result findByUid(String oid, Integer page, Integer num) {
+    public Result findbyOid(String oid, Integer page, Integer num) {
         if (page == null || page < 1) {
             page = 1;
         }
         if (num == null || num < 1) {
             num = DefaultParam.pageNum;
         }
-        Result result = userTicketService.findByUid(oid, page, num);
+        Result result = userTicketService.findbyOid(oid, page, num);
         return result;
     }
 }

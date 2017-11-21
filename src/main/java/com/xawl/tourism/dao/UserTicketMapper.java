@@ -1,5 +1,6 @@
 package com.xawl.tourism.dao;
 
+import com.xawl.tourism.pojo.TicketVo;
 import com.xawl.tourism.pojo.UserTicket;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface UserTicketMapper {
 
     int updateByPrimaryKey(UserTicket record);
 
-    List<UserTicket> findByUid(String uid);
+    List<TicketVo> findbyOid(String oid);
 }
