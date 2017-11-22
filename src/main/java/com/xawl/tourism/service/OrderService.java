@@ -4,11 +4,18 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xawl.tourism.dao.OrderMapper;
 import com.xawl.tourism.pojo.Order;
+import com.xawl.tourism.pojo.OrderVo;
 import com.xawl.tourism.pojo.UserTicketList;
 import com.xawl.tourism.utils.Result;
+import com.xawl.tourism.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +25,8 @@ import java.util.List;
 public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    DataSourceTransactionManager transactionManager;
 
     public Result findOrder(Order order, Integer page, Integer num) {
         try {
@@ -32,15 +41,29 @@ public class OrderService {
 
     }
 
-    public Result createOrder(String bid, UserTicketList userTickets) {
+    public Result createOrder(String uid, String bid, UserTicketList userTickets) {
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW); // 事物隔离级别，开启新事务，这样会比较安全些。
+        TransactionStatus status = transactionManager.getTransaction(def); // 获得事务状态
         try {
+            OrderVo orderVo = new OrderVo();
+            Order order = orderVo.getOrder();
+            order.setStatus((short) 0);//默认订单未付款0
+            order.setBid(bid);
+            order.setCreateTime(new Date());
+            order.setOid(UUIDUtils.createUUID());//生成订单号
+            order.setUid(uid);
+            orderMapper.insertSelective(order);
 
 
 
-            return Result.success(null);
+
+            transactionManager.commit(status);
+            return Result.success(order);
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.fail("查询失败");
+            transactionManager.rollback(status);
+            return Result.fail("创建订单失败");
         }
     }
 }
