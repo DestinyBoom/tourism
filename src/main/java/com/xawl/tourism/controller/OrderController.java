@@ -1,6 +1,8 @@
 package com.xawl.tourism.controller;
 
 import com.xawl.tourism.pojo.Order;
+import com.xawl.tourism.pojo.UserTicket;
+import com.xawl.tourism.pojo.UserTicketList;
 import com.xawl.tourism.service.OrderService;
 import com.xawl.tourism.utils.DefaultParam;
 import com.xawl.tourism.utils.Result;
@@ -31,5 +33,14 @@ public class OrderController {
         Result result = orderService.findOrder(order, page, num);
         return result;
     }
+
+    @RequestMapping("/createOrder.action")
+    @ResponseBody
+    public Result createOrder(String bid, UserTicketList userTickets) {
+        Result result = orderService.createOrder(bid, userTickets);
+        return result;
+    }
+
+
 }
 

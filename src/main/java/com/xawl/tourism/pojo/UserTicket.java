@@ -72,4 +72,17 @@ public class UserTicket {
     public void setTid(String tid) {
         this.tid = tid == null ? null : tid.trim();
     }
+
+    @Override
+    public String toString() {
+        return "UserTicket{" +
+                "code='" + code + '\'' +
+                ", num=" + num +
+                ", useDate=" + useDate +
+                ", useTime=" + useTime +
+                ", isUse=" + isUse +
+                ", oid='" + oid + '\'' +
+                ", tid='" + tid + '\'' +
+                '}';
+    }
 }
