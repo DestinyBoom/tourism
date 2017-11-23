@@ -24,12 +24,20 @@ public class RoleInterceptor implements HandlerInterceptor {
 	}
 
 	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1,
-			Object arg2, ModelAndView arg3) throws Exception {
+			Object handle, ModelAndView arg3) throws Exception {
+
 		// TODO Auto-generated method stub
 	}
 
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handle) throws Exception {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, client_id, uuid, Authorization");
+		response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
+
+		if (!(handle instanceof HandlerMethod)) {
+			return false;
+		}
 		HandlerMethod handlerMethod = (HandlerMethod) handle;
 		java.lang.reflect.Method method = handlerMethod.getMethod();
 		Role role = method.getAnnotation(Role.class);
@@ -63,7 +71,7 @@ public class RoleInterceptor implements HandlerInterceptor {
 		response.setContentType("application/json;charset=UTF-8");
 		JSONObject jsonObjec = JsonUtil.createJson(status);
 		jsonObjec.element("msg", message);
-		response.setHeader("Cache-Control", "no-cache, must-revalidate");
+
 		try {
 			response.getWriter().print(jsonObjec.toString());
 		} catch (IOException e) {
