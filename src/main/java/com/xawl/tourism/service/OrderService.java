@@ -42,7 +42,6 @@ public class OrderService {
             e.printStackTrace();
             return Result.fail("查询失败");
         }
-
     }
 
     public Result createOrder(String uid, String bid, UserTicketList userTickets) {
@@ -75,6 +74,19 @@ public class OrderService {
             e.printStackTrace();
             transactionManager.rollback(status);
             return Result.fail("创建订单失败");
+        }
+    }
+
+    public Result payOrder(String oid) {
+        try {
+            Order order = new Order();
+            order.setOid(oid);
+            order.setStatus((short) 1);
+            orderMapper.updateByPrimaryKeySelective(order);
+            return Result.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.fail("支付失败");
         }
     }
 }

@@ -40,6 +40,15 @@ public class OrderController {
         return result;
     }
 
+    @RequestMapping("/payOrder.action")
+    @ResponseBody
+    public Result payOrder(String oid) {
+        if (oid == null || oid == "") {
+            return Result.fail("请传入订单编号");
+        }
+        Result result = orderService.payOrder(oid);
+        return result;
+    }
 
 }
 
