@@ -20,4 +20,5 @@ public interface UserMapper {
     List<User> findAll();
 
     User selectByPhone(String phone);
+
 }

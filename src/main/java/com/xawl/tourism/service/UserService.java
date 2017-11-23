@@ -2,15 +2,13 @@ package com.xawl.tourism.service;
 
 import com.xawl.tourism.dao.UserMapper;
 import com.xawl.tourism.pojo.User;
-import com.xawl.tourism.utils.MD5Utils;
-import com.xawl.tourism.utils.RandomUtils;
-import com.xawl.tourism.utils.Result;
-import com.xawl.tourism.utils.UUIDUtils;
+import com.xawl.tourism.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -44,7 +42,8 @@ public class UserService {
         }
         if(user.getPhone().equals(userRes.getPhone()) && MD5Utils.addMD5(user.getPass()).equals(userRes.getPass())){
             int token = RandomUtils.getRandom();
-            request.getSession().setAttribute("token", token);
+            request.getServletContext().setAttribute(user.getPhone(), token);
+
             return Result.success(String.valueOf(token), userRes);
         }
         return Result.fail(203, "用户名或密码错误！");
@@ -57,7 +56,7 @@ public class UserService {
      * @throws Exception
      */
     @Transactional
-    public Result regist(User user) throws Exception {
+    public Result regist(HttpServletRequest request, User user) throws Exception {
         Pattern phoneRex = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
         User userRes = this.userMapper.selectByPhone(user.getPhone());
 
@@ -87,7 +86,9 @@ public class UserService {
         //判断是否成功插入数据库
         if (row == 1) {
             User userResult = this.userMapper.selectByPhone(user.getPhone());
-            return Result.success(userResult);
+            int token = RandomUtils.getRandom();
+            request.getServletContext().setAttribute(userResult.getPhone(), token);
+            return Result.success(String.valueOf(token), userResult);
         }
         return Result.fail(205, "注册失败！");
     }
@@ -105,6 +106,11 @@ public class UserService {
         return Result.success(userRes);
     }
 
+    /**
+     * 修改用户信息
+     * @param user
+     * @return
+     */
     public Result updateByPrimaryKey(User user) {
         User userRes = this.userMapper.selectByPrimaryKey(user.getUid());
         if (userRes == null) {

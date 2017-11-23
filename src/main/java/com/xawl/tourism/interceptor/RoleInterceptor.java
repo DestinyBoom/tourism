@@ -44,21 +44,32 @@ public class RoleInterceptor implements HandlerInterceptor {
 		if (role != null) {
 			int roleCode = role.role();
 			if (roleCode == 1) {
-				String tokenint = request.getParameter("token");
-				Integer token = (Integer) request.getSession().getAttribute("token");
+				String phone = request.getParameter("phone");
+				if (phone != null){
+					String tokenint = request.getParameter("token");
+					Integer token = (Integer) request.getServletContext().getAttribute(phone);
 
-				if (tokenint == null || token == null) {
-					send(response, 406, "没有登录，不能进行操作");
-					request.getSession().invalidate();
-					return false;
+					if (tokenint == null) {
+						send(response, 406, "你没有传token");
+						request.getSession().invalidate();
+						return false;
+					}
+					if (token == null){
+						send(response, 407, "没有登录，不能进行操作");
+						request.getSession().invalidate();
+						return false;
+					}
+					if (String.valueOf(token).equals(tokenint)) {
+						return true;
+					} else {
+						send(response, 408, "token错误，账号可能已在其他终端登录");
+						request.getSession().invalidate();
+						return false;
+					}
 				}
-				if (String.valueOf(token).equals(tokenint)) {
-					return true;
-				} else {
-					send(response, 407, "token错误，账号可能已在其他终端登录");
-					request.getSession().invalidate();
-					return false;
-				}
+				send(response, 409, "你没有传phone");
+				request.getSession().invalidate();
+				return false;
 			}
 		}
 		return true;

@@ -53,9 +53,9 @@ public class UserController {
      */
     @ResponseBody
     @PostMapping("/regist.action")
-    public Result regist(User user) {
+    public Result regist(HttpServletRequest request, User user) {
         try {
-            return this.userService.regist(user);
+            return this.userService.regist(request, user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,15 +64,15 @@ public class UserController {
 
     /**
      * 按手机号查询用户信息
-     * @param phone
+     * @param selectPhone
      * @return
      */
     @Role(role=Role.ROLE_USER)
     @ResponseBody
     @GetMapping("/selectByPhone.action")
-    public Result selectByPhone(String phone) {
+    public Result selectByPhone(String selectPhone) {
         try {
-            return this.userService.selectByPhone(phone);
+            return this.userService.selectByPhone(selectPhone);
         } catch (Exception e) {
             e.printStackTrace();
         }
