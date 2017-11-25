@@ -15,12 +15,22 @@ public class Order {
 
     private String bid;
 
+    private Float totalprice;
+
+    public Float getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(Float totalprice) {
+        this.totalprice = totalprice;
+    }
+
     public String getOid() {
         return oid;
     }
 
     public void setOid(String oid) {
-        this.oid = oid == null ? null : oid.trim();
+        this.oid = oid == null ? null : oid.trim ();
     }
 
     public Short getStatus() {
@@ -52,7 +62,7 @@ public class Order {
     }
 
     public void setUid(String uid) {
-        this.uid = uid == null ? null : uid.trim();
+        this.uid = uid == null ? null : uid.trim ();
     }
 
     public String getBid() {
@@ -60,6 +70,19 @@ public class Order {
     }
 
     public void setBid(String bid) {
-        this.bid = bid == null ? null : bid.trim();
+        this.bid = bid == null ? null : bid.trim ();
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "oid='" + oid + '\'' +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", payTime=" + payTime +
+                ", uid='" + uid + '\'' +
+                ", bid='" + bid + '\'' +
+                ", totalprice=" + totalprice +
+                '}';
     }
 }
