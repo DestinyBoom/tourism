@@ -29,14 +29,14 @@ public class OrderController {
         if (num == null || num < 1) {
             num = DefaultParam.pageNum;
         }
-        Result result = orderService.findOrder(order, page, num);
+        Result result = orderService.findOrder (order, page, num);
         return result;
     }
 
     @RequestMapping("/createOrder.action")
     @ResponseBody
-    public Result createOrder(String uid, String bid, UserTicketList userTickets) {
-        Result result = orderService.createOrder(uid, bid, userTickets);
+    public Result createOrder(String uid, String bid, UserTicketList userTickets, float totalprice) {
+        Result result = orderService.createOrder (uid, bid, userTickets, totalprice);
         return result;
     }
 
@@ -44,9 +44,9 @@ public class OrderController {
     @ResponseBody
     public Result payOrder(String oid) {
         if (oid == null || oid == "") {
-            return Result.fail("请传入订单编号");
+            return Result.fail ("请传入订单编号");
         }
-        Result result = orderService.payOrder(oid);
+        Result result = orderService.payOrder (oid);
         return result;
     }
 
