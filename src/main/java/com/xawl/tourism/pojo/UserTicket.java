@@ -17,12 +17,22 @@ public class UserTicket {
 
     private String tid;
 
+    private Float price;
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
     public String getCode() {
         return code;
     }
 
     public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
+        this.code = code == null ? null : code.trim ();
     }
 
     public Short getNum() {
@@ -62,7 +72,7 @@ public class UserTicket {
     }
 
     public void setOid(String oid) {
-        this.oid = oid == null ? null : oid.trim();
+        this.oid = oid == null ? null : oid.trim ();
     }
 
     public String getTid() {
@@ -70,7 +80,7 @@ public class UserTicket {
     }
 
     public void setTid(String tid) {
-        this.tid = tid == null ? null : tid.trim();
+        this.tid = tid == null ? null : tid.trim ();
     }
 
     @Override

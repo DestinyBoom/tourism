@@ -9,6 +9,7 @@
         <result column="is_use" property="isUse" jdbcType="BIT"/>
         <result column="oid" property="oid" jdbcType="CHAR"/>
         <result column="tid" property="tid" jdbcType="CHAR"/>
+        <result column="price" property="price" jdbcType="REAL"/>
     </resultMap>
 
     <resultMap id="TIcketVoMap" type="com.xawl.tourism.pojo.TicketVo">
@@ -20,20 +21,22 @@
             <result column="is_use" property="isUse" jdbcType="BIT"/>
             <result column="oid" property="oid" jdbcType="CHAR"/>
             <result column="tid" property="tid" jdbcType="CHAR"/>
+            <result column="UserTicketPrice" property="price" jdbcType="REAL"/>
         </association>
         <association property="ticket" javaType="com.xawl.tourism.pojo.Ticket">
             <id column="tid" property="tid" jdbcType="CHAR"/>
             <result column="bid" property="bid" jdbcType="CHAR"/>
-            <result column="price" property="price" jdbcType="REAL"/>
+            <result column="ticketPrice" property="price" jdbcType="REAL"/>
             <result column="tname" property="tname" jdbcType="CHAR"/>
             <result column="info" property="info" jdbcType="CHAR"/>
         </association>
     </resultMap>
     <sql id="Base_Column_List">
     tb_user_ticket.code, tb_user_ticket.num, tb_user_ticket.use_date, tb_user_ticket.use_time, tb_user_ticket.is_use, tb_user_ticket.oid, tb_user_ticket.tid
+    ,tb_user_ticket.price UserTicketPrice
   </sql>
     <sql id="TicketList">
-        tb_ticket.tid, tb_ticket.bid, tb_ticket.price, tb_ticket.tname, tb_ticket.info
+        tb_ticket.tid, tb_ticket.bid, tb_ticket.price ticketPrice, tb_ticket.tname, tb_ticket.info
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
@@ -47,10 +50,10 @@
   </delete>
     <insert id="insert" parameterType="com.xawl.tourism.pojo.UserTicket">
     insert into tb_user_ticket (code, num, use_date, 
-      use_time, is_use, oid, tid
+      use_time, is_use, oid, tid, price
       )
     values (#{code,jdbcType=CHAR}, #{num,jdbcType=SMALLINT}, #{useDate,jdbcType=DATE}, 
-      #{useTime,jdbcType=TIMESTAMP}, #{isUse,jdbcType=BIT}, #{oid,jdbcType=CHAR}, #{tid,jdbcType=CHAR}
+      #{useTime,jdbcType=TIMESTAMP}, #{isUse,jdbcType=BIT}, #{oid,jdbcType=CHAR}, #{tid,jdbcType=CHAR}, #{price}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.xawl.tourism.pojo.UserTicket">
@@ -77,6 +80,9 @@
             <if test="tid != null">
                 tid,
             </if>
+            <if test="price != null">
+                price,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="code != null">
@@ -99,6 +105,9 @@
             </if>
             <if test="tid != null">
                 #{tid,jdbcType=CHAR},
+            </if>
+            <if test="price != null">
+                #{price},
             </if>
         </trim>
     </insert>
@@ -123,6 +132,9 @@
             <if test="tid != null">
                 tid = #{tid,jdbcType=CHAR},
             </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
         </set>
         where code = #{code,jdbcType=CHAR}
     </update>
@@ -134,6 +146,7 @@
       is_use = #{isUse,jdbcType=BIT},
       oid = #{oid,jdbcType=CHAR},
       tid = #{tid,jdbcType=CHAR}
+       price = #{price}
     where code = #{code,jdbcType=CHAR}
   </update>
 

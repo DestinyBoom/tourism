@@ -64,7 +64,7 @@ public class OrderService {
                 userTicket.setOid (oid);
                 userTicket.setIsUse (false);
                 userTicket.setCode (UUIDUtils.createUUID ());
-                userTicket.setUseTime (new Date ());
+                //userTicket.setUseTime (new Date ());
                 userTicket.setUseDate (new Date ());
                 userTicketMapper.insertSelective (userTicket);
             }
