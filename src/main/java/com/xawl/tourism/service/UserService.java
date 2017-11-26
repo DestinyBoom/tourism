@@ -43,8 +43,8 @@ public class UserService {
         if(user.getPhone().equals(userRes.getPhone()) && MD5Utils.addMD5(user.getPass()).equals(userRes.getPass())){
             int token = RandomUtils.getRandom();
             request.getServletContext().setAttribute(user.getPhone(), token);
-
-            return Result.success(String.valueOf(token), userRes);
+            userRes.setToken(token);
+            return Result.success(userRes);
         }
         return Result.fail(203, "用户名或密码错误！");
     }
@@ -88,7 +88,8 @@ public class UserService {
             User userResult = this.userMapper.selectByPhone(user.getPhone());
             int token = RandomUtils.getRandom();
             request.getServletContext().setAttribute(userResult.getPhone(), token);
-            return Result.success(String.valueOf(token), userResult);
+            userResult.setToken(token);
+            return Result.success(userResult);
         }
         return Result.fail(205, "注册失败！");
     }
