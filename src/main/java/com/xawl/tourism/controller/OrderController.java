@@ -1,5 +1,6 @@
 package com.xawl.tourism.controller;
 
+import com.xawl.tourism.interceptor.Role;
 import com.xawl.tourism.pojo.Order;
 import com.xawl.tourism.pojo.UserTicketList;
 import com.xawl.tourism.service.OrderService;
@@ -33,6 +34,7 @@ public class OrderController {
         return result;
     }
 
+    @Role(role = Role.ROLE_USER)
     @RequestMapping("/createOrder.action")
     @ResponseBody
     public Result createOrder(String uid, String bid, UserTicketList userTickets, float totalprice) {
@@ -40,6 +42,7 @@ public class OrderController {
         return result;
     }
 
+    @Role(role = Role.ROLE_USER)
     @RequestMapping("/payOrder.action")
     @ResponseBody
     public Result payOrder(String oid) {
