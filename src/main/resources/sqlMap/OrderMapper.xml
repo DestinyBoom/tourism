@@ -7,11 +7,12 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="pay_time" property="payTime" jdbcType="TIMESTAMP"/>
         <result column="uid" property="uid" jdbcType="CHAR"/>
-        <result column="bid" property="bid" jdbcType="CHAR"/>
+        <result column="tb_order. bid" property="bid" jdbcType="CHAR"/>
+        <result column="bname" property="bname" jdbcType="CHAR"/>
         <result column="totalprice" property="totalprice" jdbcType="REAL"/>
     </resultMap>
     <sql id="Base_Column_List">
-    oid, status, create_time, pay_time, uid, bid,totalprice
+    oid, status, create_time, pay_time, uid, tb_order.bid,totalprice
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
@@ -116,19 +117,18 @@
 
     <select id="select" parameterType="com.xawl.tourism.pojo.Order" resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"/>
-        FROM tb_order
-        <where>
-            <if test="uid!=null and uid!=''">
-                uid=#{uid}
-            </if>
-            <if test="bid!=null and bid!=''">
-                and bid=#{bid}
-            </if>
-            <if test="status!=null and status!=''">
-                and status=#{status}
-            </if>
-        </where>
+        <include refid="Base_Column_List"/>,bname
+        FROM tb_order, tb_business
+        where tb_order.bid=tb_business.bid
+        <if test="uid!=null and uid!=''">
+            and uid=#{uid}
+        </if>
+        <if test="bid!=null and bid!=''">
+            and tb_order.bid=#{bid}
+        </if>
+        <if test="status!=null and status!=''">
+            and status=#{status}
+        </if>
     </select>
 
 </mapper>

@@ -17,8 +17,18 @@ public class Order {
 
     private Float totalprice;
 
-    public Float getTotalprice() {
+    private Float getTotalprice() {
         return totalprice;
+    }
+
+    private String bname;
+
+    public String getBname() {
+        return bname;
+    }
+
+    public void setBname(String bname) {
+        this.bname = bname;
     }
 
     public void setTotalprice(Float totalprice) {

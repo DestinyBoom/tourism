@@ -21,6 +21,12 @@ public class UserTicketContrller {
     @Autowired
     UserTicketService userTicketService;
 
+    /**
+     * @param oid(当前订单Id)
+     * @param page(可忽略一个订单下的票数达不到分页的需求)
+     * @param num
+     * @return
+     */
     @GetMapping("/findbyOid.action")
     @ResponseBody
     public Result findbyOid(String oid, Integer page, Integer num) {
