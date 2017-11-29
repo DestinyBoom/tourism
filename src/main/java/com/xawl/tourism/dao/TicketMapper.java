@@ -20,4 +20,5 @@ public interface TicketMapper {
     List<Ticket> findByBid(String bid);
 
     Float findByMinPriceAndBid(String bid);
+
 }

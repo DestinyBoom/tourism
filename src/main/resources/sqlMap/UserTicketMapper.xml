@@ -159,7 +159,10 @@
         FROM tb_user_ticket , tb_ticket
         where tb_user_ticket.oid=#{oid} and tb_user_ticket.tid=tb_ticket.tid
     </select>
-
+    <update id="tickTicket" parameterType="java.util.Map">
+        update tb_user_ticket SET is_use=true, use_time = #{useTime,jdbcType=TIMESTAMP}
+        WHERE code=#{code}
+    </update>
     <!-- <select id="findByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
          SELECT
          <include refid="Base_Column_List"/>

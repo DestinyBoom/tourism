@@ -4,6 +4,7 @@ import com.xawl.tourism.pojo.TicketVo;
 import com.xawl.tourism.pojo.UserTicket;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserTicketMapper {
     int deleteByPrimaryKey(String code);
@@ -19,4 +20,6 @@ public interface UserTicketMapper {
     int updateByPrimaryKey(UserTicket record);
 
     List<TicketVo> findbyOid(String oid);
+
+    void tickTicket(Map code);
 }
