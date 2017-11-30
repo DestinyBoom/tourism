@@ -110,7 +110,7 @@
       pay_time = #{payTime,jdbcType=TIMESTAMP},
       uid = #{uid,jdbcType=CHAR},
       bid = #{bid,jdbcType=CHAR}
-      totalprice = #{totalprice,jdbcType=CHAR}
+      totalprice = #{totalprice}
     where oid = #{oid,jdbcType=CHAR}
   </update>
     <!--生成结束-->

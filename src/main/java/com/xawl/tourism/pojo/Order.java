@@ -17,10 +17,6 @@ public class Order {
 
     private Float totalprice;
 
-    private Float getTotalprice() {
-        return totalprice;
-    }
-
     private String bname;
 
     public String getBname() {
@@ -29,6 +25,10 @@ public class Order {
 
     public void setBname(String bname) {
         this.bname = bname;
+    }
+
+    public Float getTotalprice() {
+        return totalprice;
     }
 
     public void setTotalprice(Float totalprice) {
