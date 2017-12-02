@@ -3,8 +3,10 @@ package com.xawl.tourism.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xawl.tourism.dao.BusinessDeviceMapper;
+import com.xawl.tourism.dao.OrderMapper;
 import com.xawl.tourism.dao.TicketMapper;
 import com.xawl.tourism.dao.UserTicketMapper;
+import com.xawl.tourism.pojo.Order;
 import com.xawl.tourism.pojo.Ticket;
 import com.xawl.tourism.pojo.TicketVo;
 import com.xawl.tourism.pojo.UserTicket;
@@ -28,6 +30,8 @@ public class UserTicketService {
     BusinessDeviceMapper businessDeviceMapper;
     @Autowired
     TicketMapper ticketMapper;
+    @Autowired
+    OrderMapper orderMapper;
 
     public Result findbyOid(String oid, Integer page, Integer num) {
         try {
@@ -46,7 +50,10 @@ public class UserTicketService {
         UserTicket userTicket = userTicketMapper.selectByPrimaryKey (id);
         Ticket ticket = ticketMapper.selectByPrimaryKey (userTicket.getTid ());
         List<String> list = businessDeviceMapper.findDidListByBid (ticket.getBid ());
-        if (list == null || list.size () <= 0) {
+        Order order = orderMapper.selectByPrimaryKey (userTicket.getOid ());
+        if (order.getStatus () == 0) {
+            return "result=0;readno=" + readno + ";cnt=001;str1=111str1end;str2=1221123str2end;str3=34str3end;sndstr=订单未支付sndstrend;";
+        } else if (list == null || list.size () <= 0) {
             return "result=0;readno=" + readno + ";cnt=001;str1=111str1end;str2=1221123str2end;str3=34str3end;sndstr=错误sndstrend;";
         } else if (!list.contains (sn)) {
             return "result=0;readno=" + readno + ";cnt=001;str1=111str1end;str2=1221123str2end;str3=34str3end;sndstr=门票错误sndstrend;";
