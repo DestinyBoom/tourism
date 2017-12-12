@@ -16,9 +16,9 @@
   </context-param>
   <!--加载Spring容器-->
   <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring.xml</param-value>
-  </context-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>classpath:spring.xml</param-value>
+</context-param>
 
   <!--监听器的加载-->
   <!-- spring监听器 -->

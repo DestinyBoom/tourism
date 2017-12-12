@@ -4,7 +4,7 @@ import com.xawl.tourism.pojo.BusinessCarousel;
 
 import java.util.List;
 
-public interface BusinessCarouselMapper {
+public  interface BusinessCarouselMapper {
     int deleteByPrimaryKey(String bcid);
 
     int insert(BusinessCarousel record);
